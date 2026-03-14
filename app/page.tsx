@@ -6,6 +6,9 @@ import type { TieListRow } from '@/lib/types/view';
 export default async function HomePage() {
   const ties = (await getLiveTies()) as TieListRow[];
 
+export default async function HomePage() {
+  const ties = await getLiveTies();
+
   return (
     <main className="container-page space-y-6">
       <section className="card bg-gradient-to-r from-brand-900 to-brand-700 text-white">
