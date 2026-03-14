@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 import { StatusBadge } from '@/components/shared/status-badge';
 import { signOut } from '@/lib/services/actions';
+import type { UmpireMatchListRow } from '@/lib/types/view';
 
 export default async function UmpireDashboard() {
   const supabase = createClient();
@@ -21,6 +22,8 @@ export default async function UmpireDashboard() {
     ? await query.eq('umpire_user_id', user.id)
     : await query;
 
+  const typedMatches = (matches ?? []) as UmpireMatchListRow[];
+
   return (
     <main className="container-page space-y-4">
       <div className="flex items-center justify-between">
@@ -28,7 +31,7 @@ export default async function UmpireDashboard() {
         <form action={signOut}><button className="rounded border px-3 py-1">Sign out</button></form>
       </div>
       <div className="grid gap-3">
-        {matches?.map((match: any) => (
+        {typedMatches.map((match) => (
           <div className="card" key={match.id}>
             <div className="flex items-center justify-between">
               <div>

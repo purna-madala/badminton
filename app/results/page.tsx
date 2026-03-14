@@ -1,15 +1,16 @@
 import Link from 'next/link';
 import { TeamLogo } from '@/components/shared/team-logo';
 import { getAllTies } from '@/lib/services/queries';
+import type { TieListRow } from '@/lib/types/view';
 
 export default async function ResultsPage() {
-  const ties = (await getAllTies()).filter((tie: any) => tie.status === 'finished');
+  const ties = ((await getAllTies()) as TieListRow[]).filter((tie) => tie.status === 'finished');
 
   return (
     <main className="container-page">
       <h1 className="mb-4 text-2xl font-bold">Results</h1>
       <div className="space-y-3">
-        {ties.map((tie: any) => (
+        {ties.map((tie) => (
           <div key={tie.id} className="card">
             <div className="flex items-center gap-2">
               <TeamLogo src={tie.team_a.logo_url} alt={tie.team_a.name} />

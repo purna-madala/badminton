@@ -1,6 +1,10 @@
 import { NavCards } from '@/components/public/nav-cards';
 import { getLiveTies } from '@/lib/services/queries';
 import { LiveTies } from '@/components/public/live-ties';
+import type { TieListRow } from '@/lib/types/view';
+
+export default async function HomePage() {
+  const ties = (await getLiveTies()) as TieListRow[];
 
 export default async function HomePage() {
   const ties = await getLiveTies();
