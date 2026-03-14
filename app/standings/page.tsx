@@ -1,7 +1,8 @@
 import { getStandings } from '@/lib/services/queries';
+import type { StandingsRow } from '@/lib/types/view';
 
 export default async function StandingsPage() {
-  const standings = await getStandings();
+  const standings = (await getStandings()) as StandingsRow[];
   return (
     <main className="container-page">
       <h1 className="mb-4 text-2xl font-bold">Standings</h1>
@@ -15,7 +16,7 @@ export default async function StandingsPage() {
             </tr>
           </thead>
           <tbody>
-            {standings.map((row: any) => (
+            {standings.map((row) => (
               <tr key={row.team_id} className="border-b last:border-0">
                 <td className="px-3 py-2 font-medium">{row.team_name}</td>
                 <td className="px-3 py-2">{row.ties_played}</td><td className="px-3 py-2">{row.ties_won}</td><td className="px-3 py-2">{row.ties_lost}</td>

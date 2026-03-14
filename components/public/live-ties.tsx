@@ -6,8 +6,9 @@ import { createClient } from '@/lib/supabase/client';
 import { TeamLogo } from '@/components/shared/team-logo';
 import { StatusBadge } from '@/components/shared/status-badge';
 import { formatDateTime } from '@/lib/utils/format';
+import type { MatchSetRow, TieListRow } from '@/lib/types/view';
 
-export function LiveTies({ initialTies }: { initialTies: any[] }) {
+export function LiveTies({ initialTies }: { initialTies: TieListRow[] }) {
   const [ties, setTies] = useState(initialTies);
 
   useEffect(() => {
@@ -58,8 +59,8 @@ export function LiveTies({ initialTies }: { initialTies: any[] }) {
             </div>
           </div>
           <div className="mt-4 grid gap-3 md:grid-cols-2">
-            {tie.tie_matches.map((match: any) => {
-              const currentSet = match.match_sets.find((set: any) => set.set_number === match.current_set_number) ?? match.match_sets[0];
+            {tie.tie_matches.map((match) => {
+              const currentSet = match.match_sets.find((setRow: MatchSetRow) => setRow.set_number === match.current_set_number) ?? match.match_sets[0];
               return (
                 <div key={match.id} className="rounded-lg border border-slate-200 p-3 text-sm">
                   <div className="flex items-center justify-between">

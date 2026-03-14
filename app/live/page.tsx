@@ -1,8 +1,9 @@
 import { LiveTies } from '@/components/public/live-ties';
 import { getLiveTies } from '@/lib/services/queries';
+import type { TieListRow } from '@/lib/types/view';
 
-export default async function LivePage() {
-  const ties = await getLiveTies();
+async function LivePage() {
+  const ties = (await getLiveTies()) as TieListRow[];
 
   return (
     <main className="container-page">
@@ -11,3 +12,5 @@ export default async function LivePage() {
     </main>
   );
 }
+
+export default LivePage;
